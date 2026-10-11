@@ -17,14 +17,12 @@ function cargarTareas() {
 }
 
 function guardarTarea(){
+
     localStorage.setItem('tareas', JSON.stringify(tareasGuardadas));
+
 }
 
-
-// Guardar nueva tarea
-formulario.addEventListener('submit', (evento) => {
-
-    evento.preventDefault(); // Evita que la página se recargue
+function crearTarea(){
 
     let nuevaTarea = inputTarea.value.trim();
 
@@ -35,6 +33,16 @@ formulario.addEventListener('submit', (evento) => {
     
     inputTarea.value = ''; // Limpiar campo
     cargarTareas();
+
+}
+
+
+// Guardar nueva tarea
+formulario.addEventListener('submit', (evento) => {
+
+    evento.preventDefault(); // Evita que la página se recargue
+
+    crearTarea();
 
 });
 
