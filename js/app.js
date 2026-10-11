@@ -1,30 +1,41 @@
 const formulario = document.getElementById('formulario-tareas');
 const inputTarea = document.getElementById('nueva-tarea');
 const listaTareas = document.getElementById('lista-tareas');
+let tareasGuardadas = JSON.parse(localStorage.getItem('tareas')) || [];
 
-// Cargar tareas de localStorage al iniciar
+// Renderizar tareas
 function cargarTareas() {
-    const tareasGuardadas = JSON.parse(localStorage.getItem('tareas')) || [];
+
     listaTareas.innerHTML = '';
+    
     tareasGuardadas.forEach(tarea => {
-        const li = document.createElement('li');
+        let li = document.createElement('li');
         li.textContent = tarea;
         listaTareas.appendChild(li);
     });
+
 }
 
+function guardarTarea(){
+    localStorage.setItem('tareas', JSON.stringify(tareasGuardadas));
+}
+
+
 // Guardar nueva tarea
-formulario.addEventListener('submit', function(evento) {
+formulario.addEventListener('submit', (evento) => {
+
     evento.preventDefault(); // Evita que la página se recargue
-    
-    const nuevaTarea = inputTarea.value;
-    const tareasGuardadas = JSON.parse(localStorage.getItem('tareas')) || [];
+
+    let nuevaTarea = inputTarea.value.trim();
+
+    if(!nuevaTarea) return;
     
     tareasGuardadas.push(nuevaTarea);
-    localStorage.setItem('tareas', JSON.stringify(tareasGuardadas)); // Uso de localStorage
+    guardarTarea();
     
     inputTarea.value = ''; // Limpiar campo
-    cargarTareas(); // Actualizar vista
+    cargarTareas();
+
 });
 
 // Inicializar
