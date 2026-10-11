@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Gestor de Tareas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Mis Tareas</h1>
+    </header>
+    <main>
+        <!-- Formulario nativo con 'required' -->
+        <form id="formulario-tareas">
+            <label for="nueva-tarea">Nueva tarea:</label>
+            <input type="text" id="nueva-tarea" required placeholder="Ej. Estudiar HTML5">
+            <button type="submit">Guardar</button>
+        </form>
+
+        <h2>Lista guardada</h2>
+        <ul id="lista-tareas"></ul>
+    </main>
+    <script src="js/app.js"></script>
+</body>
+</html>
