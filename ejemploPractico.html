@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Gestor de Tareas</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        main { max-width: 400px; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #eee; margin: 5px 0; padding: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mis Tareas</h1>
+    </header>
+    
+    <main>
+        <!-- Formulario nativo con 'required' -->
+        <form id="formulario-tareas">
+            <label for="nueva-tarea">Nueva tarea:</label>
+            <input type="text" id="nueva-tarea" required placeholder="Ej. Estudiar HTML5">
+            <button type="submit">Guardar</button>
+        </form>
+
+        <h2>Lista guardada</h2>
+        <ul id="lista-tareas"></ul>
+    </main>
+
+    <script>
+        const formulario = document.getElementById('formulario-tareas');
+        const inputTarea = document.getElementById('nueva-tarea');
+        const listaTareas = document.getElementById('lista-tareas');
+
+        // Cargar tareas de localStorage al iniciar
+        function cargarTareas() {
+            const tareasGuardadas = JSON.parse(localStorage.getItem('tareas')) || [];
+            listaTareas.innerHTML = '';
+            tareasGuardadas.forEach(tarea => {
+                const li = document.createElement('li');
+                li.textContent = tarea;
+                listaTareas.appendChild(li);
+            });
+        }
+
+        // Guardar nueva tarea
+        formulario.addEventListener('submit', function(evento) {
+            evento.preventDefault(); // Evita que la página se recargue
+            
+            const nuevaTarea = inputTarea.value;
+            const tareasGuardadas = JSON.parse(localStorage.getItem('tareas')) || [];
+            
+            tareasGuardadas.push(nuevaTarea);
+            localStorage.setItem('tareas', JSON.stringify(tareasGuardadas)); // Uso de localStorage
+            
+            inputTarea.value = ''; // Limpiar campo
+            cargarTareas(); // Actualizar vista
+        });
+
+        // Inicializar
+        cargarTareas();
+    </script>
+</body>
+</html>
